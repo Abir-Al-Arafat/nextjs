@@ -13,6 +13,9 @@ const UsersPage = async ({ searchParams: { sortOrder } }: Props) => {
       <Link className="btn btn-primary" href="/">
         Back
       </Link>
+      <Link className="btn ml-5" href="/users/new">
+        New User
+      </Link>
       <h1>Users </h1> <UserTable sortOrder={sortOrder} />
     </>
   );
