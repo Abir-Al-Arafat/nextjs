@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import schema from "../schema";
 
 interface Props {
   params: { id: number };
@@ -29,11 +30,9 @@ export async function PUT(request: NextRequest, { params: { id } }: Props) {
       { status: 404 }
     );
   const body = await request.json();
-  if (!body.name) {
-    return NextResponse.json(
-      { error: "name should not be empty" },
-      { status: 400 }
-    );
+  const validation = schema.safeParse(body);
+  if (!validation.success) {
+    return NextResponse.json(validation.error.errors, { status: 400 });
   }
   return NextResponse.json({
     id,
